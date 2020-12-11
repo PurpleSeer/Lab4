@@ -39,8 +39,8 @@ namespace Lab4
 
         private void paint_box_MouseMove(object sender, MouseEventArgs e)
         {
-            label_x.Text = "Координаты X: " + e.X.ToString();
-            label_y.Text = "Координаты Y: " + e.Y.ToString();
+            label_x.Text = "X: " + e.X.ToString();
+            label_y.Text = "Y: " + e.Y.ToString();
         }
         private void paint_circle(Color name, ref Storage stg, int index)
         {   // Рисует круг на панели            
@@ -61,12 +61,71 @@ namespace Lab4
             }
         }
 
+        private void remove_selection_circle(ref Storage stg)
+        {   // Снимает выделение у всех элементов хранилища
+            for (int i = 0; i < k; ++i)
+            {
+                if (!storag.check_empty(i))
+                {   // Вызываем функцию отрисовки круга
+                    paint_circle(Color.Navy, ref storag, i);
+                }
+            }
+        }
+
+        private void remove_selected_circle(ref Storage stg)
+        {   // Удаляет выделенные элементы из хранилища
+            for (int i = 0; i < k; ++i)
+            {
+                if (!storag.check_empty(i))
+                {
+                    if (storag.objects[i].color == Color.Red)
+                    {
+                        storag.delete_object(i);
+                    }
+                }
+            }
+        }
+
         int p = 0; // Нажат ли был ранее Ctrl
         static int k = 5; // Кол-во ячеек в хранилище
         Storage storag = new Storage(k); // Создаем объект хранилища
         static int index = 0; // Кол-во нарисованных кругов
         int indexin = 0; // Индекс, в какое место был помещён круг
 
+        private int check_circle(ref Storage stg, int size, int x, int y)
+        {   // Проверяет есть ли уже круг с такими же координатами в хранилище
+            if (stg.occupied(size) != 0)
+            {
+                for (int i = 0; i < size; ++i)
+                {
+                    if (!stg.check_empty(i))
+                    {
+                        int x1 = stg.objects[i].x - 15;
+                        int x2 = stg.objects[i].x + 15;
+                        int y1 = stg.objects[i].y - 15;
+                        int y2 = stg.objects[i].y + 15;
+
+                        // Если круг есть, возвращет индекс круга в хранилище
+                        if ((x1 <= x && x <= x2) && (y1 <= y && y <= y2))
+                            return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private void button_clear_paintbox_Click(object sender, EventArgs e)
+        {   // Очищает панель от кругов
+            paint_box.Refresh(); // Перерисовывем панель paint_box
+
+            for (int i = 0; i < k; ++i)
+            {
+                if (!storag.check_empty(i))
+                {   // Меняем is_drawed на false
+                    storag.objects[i].is_drawed = false;
+                }
+            }
+        }
         class Storage
         {
             public Circle[] objects;
@@ -133,5 +192,86 @@ namespace Lab4
 
             ~Storage() { }
         };
+        private void button_show_Click(object sender, EventArgs e)
+        {   // Отобразить все круги из хранилища
+            paint_box.Refresh();
+            if (storag.occupied(k) != 0)
+            {
+
+                for (int i = 0; i < k; ++i)
+                {
+                    if (!storag.check_empty(i))
+                    {   // Меняем is_drawed на true
+                        storag.objects[i].is_drawed = true;
+                    }
+                    paint_circle(Color.Navy, ref storag, i);
+                }
+            }
+
+        }
+
+        private void button_deletestorage_Click(object sender, EventArgs e)
+        {   // Удалить все круги из хранилища
+            for (int i = 0; i < k; ++i)
+            {
+                storag.objects[i] = null;
+            }
+            index = 0;
+        }
+
+        private void paint_box_MouseClick(object sender, MouseEventArgs e)
+        {
+            Circle krug = new Circle(e.X, e.Y);
+            if (index == k)
+                storag.doubleSize(ref k);
+            // Проверка на наличие круга на данных координатах
+            int c = check_circle(ref storag, k, krug.x, krug.y);
+            if (c != -1)
+            {   // Если на этом месте уже нарисован круг
+                if (Control.ModifierKeys == Keys.Control)
+                {   // Если нажат ctrl, то выделяем несколько объектов
+                    if (p == 0)
+                    {
+                        paint_circle(Color.Navy, ref storag, indexin);
+                        p = 1;
+                    }
+                    // Вызываем функцию отрисовки круга
+                    paint_circle(Color.Red, ref storag, c);
+                }
+                else
+                {   // Иначе выделяем только один объект
+                    // Снимаем выделение у всех объектов хранилища
+                    remove_selection_circle(ref storag);
+                    // Вызываем функцию отрисовки круга
+                    paint_circle(Color.Red, ref storag, c);
+                }
+                return;
+            }
+            // Добавляем круг в хранилище   
+            storag.add_object(index, ref krug, k, ref indexin);
+            // Снимаем выделение у всех объектов хранилища
+            remove_selection_circle(ref storag);
+
+            // Вызываем функцию отрисовки круга
+            paint_circle(Color.Red, ref storag, indexin);
+            ++index;
+            p = 0;
+        }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.Delete)
+            {
+                remove_selected_circle(ref storag);
+                paint_box.Refresh();
+                if (storag.occupied(k) != 0)
+                {
+                    for (int i = 0; i < k; ++i)
+                    {
+                        paint_circle(Color.Navy, ref storag, i);
+                    }
+                }
+            }
+        }
     }
 }

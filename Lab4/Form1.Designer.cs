@@ -44,6 +44,7 @@
             this.paint_box.Name = "paint_box";
             this.paint_box.Size = new System.Drawing.Size(602, 425);
             this.paint_box.TabIndex = 0;
+            this.paint_box.MouseClick += new System.Windows.Forms.MouseEventHandler(this.paint_box_MouseClick);
             this.paint_box.MouseMove += new System.Windows.Forms.MouseEventHandler(this.paint_box_MouseMove);
             // 
             // label_x
@@ -73,6 +74,8 @@
             this.button_show.TabIndex = 3;
             this.button_show.Text = "Вывод из хранилища";
             this.button_show.UseVisualStyleBackColor = false;
+            this.button_show.Click += new System.EventHandler(this.button_show_Click);
+            this.button_show.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             // 
             // button_deletestorage
             // 
@@ -83,6 +86,8 @@
             this.button_deletestorage.TabIndex = 4;
             this.button_deletestorage.Text = "Очистка хранилища";
             this.button_deletestorage.UseVisualStyleBackColor = false;
+            this.button_deletestorage.Click += new System.EventHandler(this.button_deletestorage_Click);
+            this.button_deletestorage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             // 
             // button_clear_paintbox
             // 
@@ -93,6 +98,8 @@
             this.button_clear_paintbox.TabIndex = 5;
             this.button_clear_paintbox.Text = "Очистка панели";
             this.button_clear_paintbox.UseVisualStyleBackColor = false;
+            this.button_clear_paintbox.Click += new System.EventHandler(this.button_clear_paintbox_Click);
+            this.button_clear_paintbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             // 
             // Main
             // 
@@ -108,6 +115,7 @@
             this.Controls.Add(this.paint_box);
             this.Name = "Main";
             this.Text = "Lab4";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
