@@ -1,6 +1,6 @@
 ﻿namespace Lab4
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -38,10 +38,13 @@
             // 
             // paint_box
             // 
+            this.paint_box.BackColor = System.Drawing.Color.Honeydew;
+            this.paint_box.ForeColor = System.Drawing.Color.Transparent;
             this.paint_box.Location = new System.Drawing.Point(13, 13);
             this.paint_box.Name = "paint_box";
             this.paint_box.Size = new System.Drawing.Size(602, 425);
             this.paint_box.TabIndex = 0;
+            this.paint_box.MouseMove += new System.Windows.Forms.MouseEventHandler(this.paint_box_MouseMove);
             // 
             // label_x
             // 
@@ -63,35 +66,39 @@
             // 
             // button_show
             // 
+            this.button_show.BackColor = System.Drawing.Color.DeepPink;
             this.button_show.Location = new System.Drawing.Point(622, 76);
             this.button_show.Name = "button_show";
             this.button_show.Size = new System.Drawing.Size(166, 56);
             this.button_show.TabIndex = 3;
             this.button_show.Text = "Вывод из хранилища";
-            this.button_show.UseVisualStyleBackColor = true;
+            this.button_show.UseVisualStyleBackColor = false;
             // 
             // button_deletestorage
             // 
+            this.button_deletestorage.BackColor = System.Drawing.Color.HotPink;
             this.button_deletestorage.Location = new System.Drawing.Point(622, 138);
             this.button_deletestorage.Name = "button_deletestorage";
             this.button_deletestorage.Size = new System.Drawing.Size(166, 56);
             this.button_deletestorage.TabIndex = 4;
             this.button_deletestorage.Text = "Очистка хранилища";
-            this.button_deletestorage.UseVisualStyleBackColor = true;
+            this.button_deletestorage.UseVisualStyleBackColor = false;
             // 
             // button_clear_paintbox
             // 
+            this.button_clear_paintbox.BackColor = System.Drawing.Color.Pink;
             this.button_clear_paintbox.Location = new System.Drawing.Point(622, 200);
             this.button_clear_paintbox.Name = "button_clear_paintbox";
             this.button_clear_paintbox.Size = new System.Drawing.Size(166, 56);
             this.button_clear_paintbox.TabIndex = 5;
             this.button_clear_paintbox.Text = "Очистка панели";
-            this.button_clear_paintbox.UseVisualStyleBackColor = true;
+            this.button_clear_paintbox.UseVisualStyleBackColor = false;
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button_clear_paintbox);
             this.Controls.Add(this.button_deletestorage);
@@ -99,7 +106,7 @@
             this.Controls.Add(this.label_y);
             this.Controls.Add(this.label_x);
             this.Controls.Add(this.paint_box);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "Lab4";
             this.ResumeLayout(false);
             this.PerformLayout();
