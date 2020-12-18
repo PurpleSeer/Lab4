@@ -17,12 +17,16 @@ namespace Lab4
             InitializeComponent();
         }
 
-        class Circle
+        class Figure
         {
-            public int x, y; // Координаты круга
+            public int x, y;
+            public Color color=Color.Yellow;
+            public bool is_drawed = true;
+        }
+
+        class Circle:Figure
+        {
             public int rad = 15; // Радиус круга
-            public Color color = Color.Navy; // Выделен ли элемент
-            public bool is_drawed = true; // Нарисован ли круг на полотне
             public Circle()
             {
                 x = 0;
@@ -37,26 +41,100 @@ namespace Lab4
             ~Circle() { }
         }
 
+        class Square:Figure
+        { 
+            public int x2,y2,size;
+            public Square()
+            {
+                x = 0;
+                y = 0;
+                x2 = 0;
+                y2 = 0;
+            }
+            public Square(int x, int y,int size)
+            {
+                this.x = x;
+                this.y = y;
+                this.x2=size;
+                this.y2=size;
+            }
+
+            ~Square() { }
+        }
+
+        class Line:Figure
+        {
+            public int lenght=30,x2,y2;
+            public Line()
+            {
+                x = 0;
+                y = 0;
+                x2 = 0;
+                y2 = 0;
+            }
+            public Line(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+                this.x2 = x + lenght;
+                this.y2 = y;
+            }
+            ~Line() { }
+        }
+
         private void paint_box_MouseMove(object sender, MouseEventArgs e)
         {
             label_x.Text = "X: " + e.X.ToString();
             label_y.Text = "Y: " + e.Y.ToString();
         }
-        private void paint_circle(Color name, ref Storage stg, int index)
-        {   // Рисует круг на панели            
+
+        //private void paint_circle(Color name, ref Storage stg, int index)
+        //{   // Рисует круг на панели            
+        //    Pen pen = new Pen(name, 3);
+        //    // Объявляем объект - карандаш, которым будем рисовать контур
+        //    if (!storag.check_empty(index))
+        //    {
+        //        if (storag.objects[index].is_drawed == true)
+        //        {
+        //            paint_box.CreateGraphics().DrawEllipse(
+        //            pen,
+        //            stg.objects[index].x,
+        //            stg.objects[index].y,
+        //            stg.objects[index].rad * 2,
+        //            stg.objects[index].rad * 2);
+        //            stg.objects[index].color = name;
+        //        }
+        //    }
+        //}
+
+        private void paint_Figure(Color name, ref Storage stg, int index)
+        {
             Pen pen = new Pen(name, 3);
-            // Объявляем объект - карандаш, которым будем рисовать контур
             if (!storag.check_empty(index))
             {
-                if (storag.objects[index].is_drawed == true)
+                if(storag.objects[index] as Circle !=null)
                 {
-                    paint_box.CreateGraphics().DrawEllipse(
-                    pen,
-                    stg.objects[index].x,
-                    stg.objects[index].y,
-                    stg.objects[index].rad * 2,
-                    stg.objects[index].rad * 2);
+                    Circle circle = storag.objects[index] as Circle;
+                    paint_box.CreateGraphics().DrawEllipse(pen, circle.x, circle.y, circle.rad * 2, circle.rad * 2);
                     stg.objects[index].color = name;
+                }
+                else
+                {
+                    if (storag.objects[index] as Square != null)
+                    {
+                        Square square = storag.objects[index] as Square;
+                        paint_box.CreateGraphics().DrawRectangle(pen, square.x, square.y, square.x2, square.y2);
+                        stg.objects[index].color = name;
+                    }
+                    else
+                    {
+                        if (storag.objects[index] as Line != null)
+                        {
+                            Line line = storag.objects[index] as Line;
+                            paint_box.CreateGraphics().DrawLine(pen, line.x, line.y, line.x2, line.y2);
+                            stg.objects[index].color = name;
+                        }
+                    }
                 }
             }
         }
@@ -67,7 +145,7 @@ namespace Lab4
             {
                 if (!storag.check_empty(i))
                 {   // Вызываем функцию отрисовки круга
-                    paint_circle(Color.Navy, ref storag, i);
+                    paint_Figure(Color.Yellow, ref storag, i);
                 }
             }
         }
@@ -78,7 +156,7 @@ namespace Lab4
             {
                 if (!storag.check_empty(i))
                 {
-                    if (storag.objects[i].color == Color.Red)
+                    if (storag.objects[i].color == Color.Blue)
                     {
                         storag.delete_object(i);
                     }
@@ -107,7 +185,10 @@ namespace Lab4
 
                         // Если круг есть, возвращет индекс круга в хранилище
                         if ((x1 <= x && x <= x2) && (y1 <= y && y <= y2))
-                            return i;
+                        {
+                            if (storag.objects[i].color == Color.Yellow)
+                                return i;
+                        }
                     }
                 }
             }
@@ -128,22 +209,22 @@ namespace Lab4
         }
         class Storage
         {
-            public Circle[] objects;
+            public Figure[] objects;
 
             public Storage(int count)
             {   // Конструктор по умолчанию 
                 // Выделяем count мест в хранилище
-                objects = new Circle[count];
+                objects = new Figure[count];
                 for (int i = 0; i < count; ++i)
                     objects[i] = null;
             }
             public void initialisat(int count)
             {   // Выделяем count мест в хранилище
-                objects = new Circle[count];
+                objects = new Figure[count];
                 for (int i = 0; i < count; ++i)
                     objects[i] = null;
             }
-            public void add_object(int ind, ref Circle object1, int count, ref int indexin)
+            public void add_object(int ind, ref Figure object1, int count, ref int indexin)
             {   // Добавляет ячейку в хранилище
                 // Если ячейка занята ищем свободное место
                 while (objects[ind] != null)
@@ -204,7 +285,7 @@ namespace Lab4
                     {   // Меняем is_drawed на true
                         storag.objects[i].is_drawed = true;
                     }
-                    paint_circle(Color.Navy, ref storag, i);
+                    paint_Figure(Color.Yellow, ref storag, i);
                 }
             }
 
@@ -221,40 +302,80 @@ namespace Lab4
 
         private void paint_box_MouseClick(object sender, MouseEventArgs e)
         {
-            Circle krug = new Circle(e.X, e.Y);
+            //Проверка на наличие круга на данных координатах
+            int c = check_circle(ref storag, k, e.X - 15, e.Y - 15);
             if (index == k)
                 storag.doubleSize(ref k);
-            // Проверка на наличие круга на данных координатах
-            int c = check_circle(ref storag, k, krug.x, krug.y);
             if (c != -1)
             {   // Если на этом месте уже нарисован круг
                 if (Control.ModifierKeys == Keys.Control)
                 {   // Если нажат ctrl, то выделяем несколько объектов
                     if (p == 0)
                     {
-                        paint_circle(Color.Navy, ref storag, indexin);
+                        paint_Figure(Color.Yellow, ref storag, indexin);
                         p = 1;
                     }
-                    // Вызываем функцию отрисовки круга
-                    paint_circle(Color.Red, ref storag, c);
+                    for (int j = 0; j < 10; ++j)
+                    {
+                        c = check_circle(ref storag, k, e.X - 15, e.Y - 15);
+                        if (c != -1)
+                        {
+                            // Вызываем функцию отрисовки круга
+                            paint_Figure(Color.Blue, ref storag, c);
+                        }
+                    }
                 }
                 else
                 {   // Иначе выделяем только один объект
                     // Снимаем выделение у всех объектов хранилища
                     remove_selection_circle(ref storag);
-                    // Вызываем функцию отрисовки круга
-                    paint_circle(Color.Red, ref storag, c);
+                    for (int j = 0; j < 10; ++j)
+                    {
+                        c = check_circle(ref storag, k, e.X - 15, e.Y - 15);
+                        // Вызываем функцию отрисовки круга
+                        if (c != -1)
+                        {
+                            // Вызываем функцию отрисовки круга
+                            paint_Figure(Color.Blue, ref storag, c);
+                        }
+                    }
                 }
                 return;
             }
-            // Добавляем круг в хранилище   
-            storag.add_object(index, ref krug, k, ref indexin);
-            // Снимаем выделение у всех объектов хранилища
-            remove_selection_circle(ref storag);
 
-            // Вызываем функцию отрисовки круга
-            paint_circle(Color.Red, ref storag, indexin);
-            ++index;
+            else
+            {
+                if (rb_Circle.Checked == true)
+                {
+                    Figure krug = new Circle(e.X, e.Y);// Добавляем круг в хранилище                    
+                    storag.add_object(index, ref krug, k, ref indexin); // Снимаем выделение у всех объектов хранилища
+                    remove_selection_circle(ref storag); // Вызываем функцию отрисовки круга
+                    paint_Figure(Color.Blue, ref storag, indexin);
+                    ++index;
+                }
+                else
+                {
+                    if (rb_Square.Checked == true)
+                    {
+                        Figure kvadrat = new Square(e.X, e.Y,50);
+                        storag.add_object(index, ref kvadrat, k, ref indexin);
+                        remove_selection_circle(ref storag);
+                        paint_Figure(Color.Blue, ref storag, indexin);
+                        ++index;
+                    }
+                    else
+                    {
+                        if (rb_Line.Checked == true)
+                        {
+                            Figure liniya = new Line(e.X, e.Y);
+                            storag.add_object(index, ref liniya, k, ref indexin);
+                            remove_selection_circle(ref storag);
+                            paint_Figure(Color.Blue, ref storag, indexin);
+                            ++index;
+                        }
+                    }
+                }
+            }
             p = 0;
         }
 
@@ -268,7 +389,7 @@ namespace Lab4
                 {
                     for (int i = 0; i < k; ++i)
                     {
-                        paint_circle(Color.Navy, ref storag, i);
+                        paint_Figure(Color.Yellow, ref storag, i);
                     }
                 }
             }
