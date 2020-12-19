@@ -1,0 +1,10 @@
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\bin\Debug\Lab4.exe.config
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\bin\Debug\Lab4.exe
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\bin\Debug\Lab4.pdb
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab6.csprojAssemblyReference.cache
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab4.Main.resources
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab4.Properties.Resources.resources
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab6.csproj.GenerateResource.cache
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab6.csproj.CoreCompileInputs.cache
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab4.exe
+C:\Users\ilya\source\repos\OOP\Lab6\Lab4\obj\Debug\Lab4.pdb

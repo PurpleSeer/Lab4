@@ -52,7 +52,7 @@
             // 
             // paint_box
             // 
-            this.paint_box.BackColor = System.Drawing.Color.Honeydew;
+            this.paint_box.BackColor = System.Drawing.Color.DarkGray;
             this.paint_box.ForeColor = System.Drawing.Color.Transparent;
             this.paint_box.Location = new System.Drawing.Point(13, 13);
             this.paint_box.Name = "paint_box";
@@ -134,7 +134,6 @@
             this.rb_Line.Name = "rb_Line";
             this.rb_Line.Size = new System.Drawing.Size(57, 17);
             this.rb_Line.TabIndex = 2;
-            this.rb_Line.TabStop = true;
             this.rb_Line.Text = "Линия";
             this.rb_Line.UseVisualStyleBackColor = true;
             // 
@@ -145,7 +144,6 @@
             this.rb_Square.Name = "rb_Square";
             this.rb_Square.Size = new System.Drawing.Size(67, 17);
             this.rb_Square.TabIndex = 1;
-            this.rb_Square.TabStop = true;
             this.rb_Square.Text = "Квадрат";
             this.rb_Square.UseVisualStyleBackColor = true;
             // 
@@ -156,7 +154,6 @@
             this.rb_Circle.Name = "rb_Circle";
             this.rb_Circle.Size = new System.Drawing.Size(48, 17);
             this.rb_Circle.TabIndex = 0;
-            this.rb_Circle.TabStop = true;
             this.rb_Circle.Text = "Круг";
             this.rb_Circle.UseVisualStyleBackColor = true;
             // 
@@ -182,6 +179,7 @@
             this.rb_Red.TabStop = true;
             this.rb_Red.Text = "Красный";
             this.rb_Red.UseVisualStyleBackColor = true;
+            this.rb_Red.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_Red_MouseClick);
             // 
             // rb_Green
             // 
@@ -193,17 +191,19 @@
             this.rb_Green.TabStop = true;
             this.rb_Green.Text = "Зеленый";
             this.rb_Green.UseVisualStyleBackColor = true;
+            this.rb_Green.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_Green_MouseClick);
             // 
             // rb_Yellow
             // 
             this.rb_Yellow.AutoSize = true;
             this.rb_Yellow.Location = new System.Drawing.Point(7, 20);
             this.rb_Yellow.Name = "rb_Yellow";
-            this.rb_Yellow.Size = new System.Drawing.Size(67, 17);
+            this.rb_Yellow.Size = new System.Drawing.Size(66, 17);
             this.rb_Yellow.TabIndex = 0;
             this.rb_Yellow.TabStop = true;
-            this.rb_Yellow.Text = "Желтый";
+            this.rb_Yellow.Text = "Голубой";
             this.rb_Yellow.UseVisualStyleBackColor = true;
+            this.rb_Yellow.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_Aqua_MouseClick);
             // 
             // numericUpDown1
             // 
@@ -211,6 +211,7 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(163, 20);
             this.numericUpDown1.TabIndex = 8;
+            this.numericUpDown1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             // 
             // trackBar1
             // 
@@ -218,6 +219,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(163, 45);
             this.trackBar1.TabIndex = 9;
+            this.trackBar1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             // 
             // Main
             // 
@@ -235,6 +237,7 @@
             this.Controls.Add(this.label_y);
             this.Controls.Add(this.label_x);
             this.Controls.Add(this.paint_box);
+            this.KeyPreview = true;
             this.Name = "Main";
             this.Text = "Lab6";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
