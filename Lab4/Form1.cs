@@ -172,8 +172,8 @@ namespace Lab4
                         if (storag.objects[index] as Line != null)
                         {
                             Line line = storag.objects[index] as Line;
-                            paint_box.CreateGraphics().DrawLine(pen, line.x, line.y, line.x2, line.y2);
-                            paint_box.CreateGraphics().FillRectangle(figurefillcolor, line.x, line.y, line.lenght+25, line.wight);
+                            paint_box.CreateGraphics().DrawLine(pen, line.x-1, line.y, line.x2+1, line.y2);
+                            paint_box.CreateGraphics().FillRectangle(figurefillcolor, line.x, line.y, line.lenght+30, line.wight);
                             stg.objects[index].setColor(name);
                         }
                     }
@@ -211,6 +211,7 @@ namespace Lab4
         Storage storag = new Storage(k); // Создаем объект хранилища
         static int index = 0; // Кол-во нарисованных кругов
         int indexin = 0; // Индекс, в какое место был помещён круг
+        int size = 0;
 
         private int check_figure(ref Storage stg, int size, int x, int y)
         {   // Проверяет есть ли уже фигура с такими же координатами в хранилище
@@ -309,30 +310,17 @@ namespace Lab4
                     {                       
                         paint_Figure(Color.Black, ref storag, indexin);                       
                         p = 1;
-                    }
-                    //for (int j = 0; j < 10; ++j)
-                    //{
-                    //    c = check_figure(ref storag, k, e.X - 15, e.Y - 15);
-                    //    if (c != -1)
-                    //    {
+                    }                
                             // Вызываем функцию отрисовки круга                            
                             paint_Figure(Color.White, ref storag, c);                         
-                    //    }
-                    //}
                 }
                 else
                 {   // Иначе выделяем только один объект
                     // Снимаем выделение у всех объектов хранилища
                     remove_selection_circle(ref storag);
-                    //for (int j = 0; j < 10; ++j)
-                    //{
-                    //    c = check_figure(ref storag, k, e.X - 15, e.Y - 15);
-                        // Вызываем функцию отрисовки круга
-                        
+                        // Вызываем функцию отрисовки круга                   
                             // Вызываем функцию отрисовки круга                          
                             paint_Figure(Color.White, ref storag, c);
-                        
-                    //}
                 }
                 return;
             }
@@ -397,14 +385,6 @@ namespace Lab4
             if (e.KeyCode == Keys.D)
             {   // Перемещение по оси Y вверх
                 move_x(ref storag, +10);
-            }
-            if (e.KeyCode == Keys.Oemplus)
-            {   // Увеличиваем размер фигуры
-                changesize(ref storag, 10);
-            }
-            if (e.KeyCode == Keys.OemMinus)
-            {   // Уменьшаем размер фигуры
-                changesize(ref storag, -10);
             }
             paint_box.Refresh();
             paint_all(ref storag);
@@ -581,7 +561,7 @@ namespace Lab4
                             {   // Если в хранилище отрезок
                                 Line line = stg.objects[i] as Line;
                                 line.lenght += size;
-                                line.wight += size / 5;
+                                line.x2 += size;
                             }
                             else
                             {
@@ -593,11 +573,26 @@ namespace Lab4
                                     square.y2 = square.size;
                                 }
                             }
-                        }
+                        }                                        
                     }
                 }
             }
         }
 
+        private void btn_Minus_Click(object sender, EventArgs e)
+        {
+            size = -5;
+            changesize(ref storag, size);
+            paint_box.Refresh();
+            paint_all(ref storag);
+        }
+
+        private void btn_Plus_Click(object sender, EventArgs e)
+        {
+            size = 5;
+            changesize(ref storag, size);
+            paint_box.Refresh();
+            paint_all(ref storag);
+        }
     }
 }

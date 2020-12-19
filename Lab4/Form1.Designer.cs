@@ -42,12 +42,10 @@
             this.rb_Red = new System.Windows.Forms.RadioButton();
             this.rb_Green = new System.Windows.Forms.RadioButton();
             this.rb_Yellow = new System.Windows.Forms.RadioButton();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.btn_Minus = new System.Windows.Forms.Button();
+            this.btn_Plus = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // paint_box
@@ -205,21 +203,27 @@
             this.rb_Yellow.UseVisualStyleBackColor = true;
             this.rb_Yellow.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_Aqua_MouseClick);
             // 
-            // numericUpDown1
+            // btn_Minus
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(625, 447);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(163, 20);
-            this.numericUpDown1.TabIndex = 8;
-            this.numericUpDown1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
+            this.btn_Minus.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_Minus.Location = new System.Drawing.Point(625, 446);
+            this.btn_Minus.Name = "btn_Minus";
+            this.btn_Minus.Size = new System.Drawing.Size(80, 71);
+            this.btn_Minus.TabIndex = 8;
+            this.btn_Minus.Text = "-";
+            this.btn_Minus.UseVisualStyleBackColor = true;
+            this.btn_Minus.Click += new System.EventHandler(this.btn_Minus_Click);
             // 
-            // trackBar1
+            // btn_Plus
             // 
-            this.trackBar1.Location = new System.Drawing.Point(625, 473);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(163, 45);
-            this.trackBar1.TabIndex = 9;
-            this.trackBar1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
+            this.btn_Plus.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold);
+            this.btn_Plus.Location = new System.Drawing.Point(708, 446);
+            this.btn_Plus.Name = "btn_Plus";
+            this.btn_Plus.Size = new System.Drawing.Size(80, 70);
+            this.btn_Plus.TabIndex = 9;
+            this.btn_Plus.Text = "+";
+            this.btn_Plus.UseVisualStyleBackColor = true;
+            this.btn_Plus.Click += new System.EventHandler(this.btn_Plus_Click);
             // 
             // Main
             // 
@@ -227,8 +231,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(803, 535);
-            this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.btn_Plus);
+            this.Controls.Add(this.btn_Minus);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_clear_paintbox);
@@ -245,8 +249,6 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,8 +270,8 @@
         private System.Windows.Forms.RadioButton rb_Red;
         private System.Windows.Forms.RadioButton rb_Green;
         private System.Windows.Forms.RadioButton rb_Yellow;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button btn_Minus;
+        private System.Windows.Forms.Button btn_Plus;
     }
 }
 
